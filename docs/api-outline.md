@@ -11,12 +11,12 @@
 ** .Server
 ** .cli
 ** .compilers
-*** .Locale
-*** .Messages
-*** .MessageSet
 ** .middleware
 ** .settings
 * direct.i18n
+** .Locale
+** .Messages
+** .MessageSet
 * direct.server             -- instance of framework.Server service current app
 * direct.template
 * direct.util
