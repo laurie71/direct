@@ -92,7 +92,7 @@ app.configure(function setupDynamic() {
 
 app.configure(function setupErrorHandling() {
     DEBUG('Direct: configuring error handling...');
-    app.use(require('./lib/errors').handler());
+    app.use(require('./lib/framework/middleware').errorHandler());
     // app.use(express.errorHandler(app.set('errors'))); 
 });
 

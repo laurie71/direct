@@ -89,26 +89,24 @@
         <strong>Error ID: ${error.id || 'Not Available'}</strong>
         <p>...description...</p>
     </hgroup>
-    {{if error.detail}}<p>${error.detail}</p>{{/if}}    
     {{if error.hasSource()}}
     <p class="source">
-        <span class="filename">${error.sourceFile || 'Unknown Source'}</span>
-        {{if error.sourceLine > 0}}, Line: <spen class="line">${error.sourceLine}</span>{{/if}}
-        {{if error.sourceColumn > 0}}, Column: <spen class="col">${error.sourceColumn}</span>{{/if}}
+        <span class="filename">${error.source.filename || 'Unknown Source'}</span>
+        {{if error.source.lineno > 0}}, Line: <spen class="line">${error.source.lineno}</span>{{/if}}
+        {{if error.source.start > 0}}, Column: <spen class="col">${error.source.start}</span>{{/if}}
     </p>
     {{/if}}
 </header>
 
-
 {{if error.hasSource()}}
 <section id="source" class="block">
     <h2>
-        In <span class="filename">${error.sourceFile || 'Unknown Source'}</span>
-        {{if error.sourceLine > 0}}, Line: <spen class="line">${error.sourceLine}</span>{{/if}}
-        {{if error.sourceColumn > 0}}, Column: <spen class="col">${error.sourceColumn}</span>{{/if}}
+        In <span class="filename">${error.source.filename || 'Unknown Source'}</span>
+        {{if error.source.lineno > 0}}, Line: <spen class="line">${error.source.lineno}</span>{{/if}}
+        {{if error.source.start > 0}}, Column: <spen class="col">${error.source.start}</span>{{/if}}
     </h2>
     ...TODO... 
-    {{! each(line) error.sourceDetail}}
+    {{! each(line) error.detail}}
     <a href="#xxx">
         <div class="line">
         <!-- <div class="line error"> -->
@@ -117,8 +115,8 @@
         </div>
     </a>
     {{! /each}}
-{{if error.sourceDetail}}
-<pre>${JSON.stringify(error.sourceDetail)}</pre>
+{{if error.detail}}
+<pre>${JSON.stringify(error.detail)}</pre>
 {{/if}}
 </section>
 {{/if}}
@@ -131,3 +129,5 @@
 {{/if}}
 
 <p class="more">...more...</p>    
+<hr />
+<pre>${JSON.stringify(error, null, 2)}</pre>>

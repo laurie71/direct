@@ -10,8 +10,6 @@
 	<p>This error has been logged with id <strong>${error.id}</strong>.</p>
 	{{/if}}
 {{else}}
-    {{! XXX treats template name as literal template text: '}}
-    {{! tmpl '500-dev'}}
     {{html partial('500-dev')}}
 {{/if}}
 </body>
