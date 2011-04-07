@@ -7,7 +7,7 @@ var DEBUG = function() {
 // DEBUG('load lib/direct');
 // var direct = require('./lib/direct');
 DEBUG('load lib/application');
-var eapp = require('./lib/application');
+var eapp = require('./lib/framework/application');
 DEBUG('create direct app');
 new eapp.Application(__dirname+'/examples/helloworld'/* , direct*/);
 DEBUG('done');
@@ -67,7 +67,7 @@ app.configure(function setupStatic() {
     app.use(express.logger());
     
     // app.use(staticRoot+'/css', express.compiler({ 
-    app.use(staticRoot+'/css', require('./lib/compiler')({ 
+    app.use(staticRoot+'/css', require('./lib/framework/compiler')({ 
         src: cssRoot, 
         enable: ['less'] 
     }));    
@@ -87,12 +87,12 @@ app.configure(function setupDynamic() {
     app.use(express.methodOverride());
     
     app.use(express.session({ secret: app.set('secret') }));
-    app.use(require('./lib/router').router(app, appRoot));
+    app.use(require('./lib/framework/router').router(app, appRoot));
 });
 
 app.configure(function setupErrorHandling() {
     DEBUG('Direct: configuring error handling...');
-    app.use(require('./lib/error').handler());
+    app.use(require('./lib/errors').handler());
     // app.use(express.errorHandler(app.set('errors'))); 
 });
 

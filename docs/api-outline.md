@@ -3,7 +3,7 @@
 * direct
 * direct.app                -- currently loaded application; aliases direct.framework.Application.instance
 * direct.errors
-* direct.framework          -- currently loaded framework
+* direct.framework
 ** .Application
 ** .DirectError
 ** .Framework
@@ -11,16 +11,16 @@
 ** .Server
 ** .cli
 ** .compilers
-** .i18n
 *** .Locale
 *** .Messages
 *** .MessageSet
-** .logging
 ** .middleware
 ** .settings
+* direct.i18n
 * direct.server             -- instance of framework.Server service current app
 * direct.template
 * direct.util
+** .logging
 
 ---
 
