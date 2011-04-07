@@ -1,0 +1,38 @@
+{ "tag": "latest"
+, "version": "0.0.1"
+, "name": "Direct"
+, "description": "Full-stack, convention-driven Express-based web-app framework"
+, "keywords": "expressive web mvc rest restful html html5 http distributed server framework direct express connect database db orm"
+, "homepage": "http://laurie71.github.com/direct"
+, "author": "Laurie Harper (http://laurie71.github.com/)"
+, "contributors": 
+     [ "Laurie Harper (http://laurie71.github.com/)"
+     ]
+
+, "repository": { "type": "git", "url": "git://github.com/laurie71/direct.git" }
+
+, "main": "lib/index"
+, "directories": 
+    { "bin": "bin"
+    , "doc": "docs"
+    , "lib": "lib"
+    , "example": "examples"
+    }
+, "scripts": 
+    { "test": "vows --spec test/index.js"
+    }
+    
+, "engines": { "node": "~0.4" }
+, "dependencies": 
+    { "express": "~2.1"
+    , "jqtpl": "~0.1"
+    , "stylus": "~1.0"
+    , "node-api": "*"
+    }
+, "bundledDependencies":
+    {
+    }
+, "devDependencies"
+    { "vows": "*"
+    }
+}

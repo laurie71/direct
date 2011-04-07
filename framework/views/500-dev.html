@@ -1,0 +1,133 @@
+<style type="text/css">
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, Arial, Sans;
+        background: #EEEEEE;
+    }            
+    .block {
+        padding: 20px;
+        border-bottom: 1px solid #aaa;
+    }
+    
+    body>header {
+        background: #fcd2da;
+    }
+    body>header p { 
+        color: #333; 
+        color: green; 
+    }
+    body>header h1 {
+        font-weight: normal;
+        font-size: 28px;
+        margin: 0;
+    }    
+    
+    #more {
+        color: #666;
+        font-size: 80%;
+        border: none;
+    }
+    
+    #source {
+        background: #f6f6f6;
+    }
+    #source h2 {
+        font-weight: normal;
+        font-size: 18px;
+        margin: 0 0 10px 0;
+    }
+    #source .lineNumber {
+        float: left;
+        display: block;
+        width: 40px;
+        text-align: right;
+        margin-right: 10px;
+        font-size: 14px;
+        font-family: monospace;
+        background: #333;
+        color: #fff;
+    }
+    #source .line {
+        clear: both;
+        color: #333;
+        margin-bottom: 1px;
+    }
+    #source pre {
+        font-size: 14px;
+        margin: 0;
+        overflow-x: hidden;
+    }
+    #source .error {
+        color: #c00 !important;
+    }
+    #source .error .lineNumber {
+        background: #c00;
+    }
+    #source a {
+        text-decoration: none;
+    }
+    #source a:hover * {
+        cursor: pointer !important;
+    }
+    #source a:hover pre {
+        background: #FAFFCF !important;
+    }
+	#source em {
+		font-style: normal;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+	#source strong {
+		font-style: normal;
+		font-weight: bold;
+	}
+</style>
+<header class="block">
+    <hgroup>
+        <h1>${error.message || 'Unknown Error'}</h1>
+        <strong>Error ID: ${error.id || 'Not Available'}</strong>
+        <p>...description...</p>
+    </hgroup>
+    {{if error.detail}}<p>${error.detail}</p>{{/if}}    
+    {{if error.hasSource()}}
+    <p class="source">
+        <span class="filename">${error.sourceFile || 'Unknown Source'}</span>
+        {{if error.sourceLine > 0}}, Line: <spen class="line">${error.sourceLine}</span>{{/if}}
+        {{if error.sourceColumn > 0}}, Column: <spen class="col">${error.sourceColumn}</span>{{/if}}
+    </p>
+    {{/if}}
+</header>
+
+
+{{if error.hasSource()}}
+<section id="source" class="block">
+    <h2>
+        In <span class="filename">${error.sourceFile || 'Unknown Source'}</span>
+        {{if error.sourceLine > 0}}, Line: <spen class="line">${error.sourceLine}</span>{{/if}}
+        {{if error.sourceColumn > 0}}, Column: <spen class="col">${error.sourceColumn}</span>{{/if}}
+    </h2>
+    ...TODO... 
+    {{! each(line) error.sourceDetail}}
+    <a href="#xxx">
+        <div class="line">
+        <!-- <div class="line error"> -->
+            <span class="lineNumber">###:</span>
+            <pre>...line...</pre>
+        </div>
+    </a>
+    {{! /each}}
+{{if error.sourceDetail}}
+<pre>${JSON.stringify(error.sourceDetail)}</pre>
+{{/if}}
+</section>
+{{/if}}
+
+{{if error.stack}}
+<section class="block">
+    <h2>Full StackTrace:</h2>
+    <pre>${error.stack}</pre>
+</section>
+{{/if}}
+
+<p class="more">...more...</p>    
