@@ -1,2 +1,197 @@
 #!/usr/bin/env node
 
+var path = require('path');
+var util = require('util');
+path.exists('/tmp', function() { util.debug('bin/direct'); throw new Error('CALLED'); });
+process.nextTick(function() {});
+
+var cli = require('../lib/framework/cli');
+cli.main(process.argv);
+// process.exit(0);
+// 
+// 
+// 
+// //---------------------------------------------------------------------------
+// 
+// writeln("    help                : Display this information and exit.");
+// writeln("    help <command>      : Display additional information on <command>.");
+// writeln("    ");
+// writeln("    app:new             : Create a new Direct application in <path>.");
+// writeln("    app:env             : Set the environment ID of an application.");
+// writeln("    app:run             : Run an application in the current console.");
+// writeln("    app:test            : Run some or all of an application's tests.");
+// writeln("    app:debug           : Run an application with debugging enabled.");
+// writeln("    app:start           : Start an application as a server daemon.");
+// writeln("    app:status          : Report the status of a running application.");
+// writeln("    app:restart         : Gracefully restart a running application.");
+// writeln("    app:shutdown        : Gracefully stop a running application.");
+// writeln("    app:secret          : Update an application's secure key.");
+// writeln();
+// writeln("    report:api          : Generate API documentation.");
+// writeln("    report:lint         : Generate jslint/jshint report.");
+// writeln();
+// writeln("    plugin:list         : List available Direct plugins.");
+// writeln("    plugin:enable       : Enable an installed plugin for an application.");
+// writeln("    plugin:disable      : Disable an installed plugin for an application.");
+// writeln("    plugin:override     : Override a plugin resource in an application.");
+// writeln("    plugin:new          : Create a new Direct plugin project.");
+// writeln("    plugin:package      : ???");
+// writeln("    ");
+// writeln("    <plugin>:help       : Get help on plugin 'plugin'.");
+// writeln("    <plugin>:help <cmd> : Get help on command 'cmd' in plugin 'plugin'.");
+// writeln("    <plugin>:<command>  : Invoke 'commond' on plugin 'plugin'.");
+// writeln();
+// writeln("where <plugin> above is the name of a plugin. This allows you to use");
+// writeln("additional commands that may be defined by any enabled plugin. Every");
+// writeln("plugin supports the `direct <plugin>:help [path]` syntax to list the");
+// writeln("commands that plugin supports.");
+// 
+// /*    
+// ---------------------------------------------------------------------------
+// help           
+// help <command> 
+// 
+// app:new [path] [--with <plugin> ...]
+// app:env [path] <id>
+// app:run [path] [--env <id>] 
+// app:test [path] [--env <id>]
+// app:debug [path] [--env <id>] [--brk]
+// app:start [path] [--env <id>]
+// app:status [path]
+// app:restart [path]
+// app:shutdown [path]
+// app:secret [path]
+// 
+// report:api [path]
+// report:lint [path]
+// 
+// plugin:list [path] [--all | --enabled [id]]
+// plugin:enable [path] <plugin>
+// plugin:disable [path] <plugin>
+// plugin:override                                     ??????
+// plugin:new [path] <name>
+// plugin:package                                      ??????
+// 
+// <plugin>:help
+// <plugin>:help <command>
+// <plugin>:<command>                                  ??????
+//  */
+// 
+// 
+// /*
+// $ ./play help
+// ~        _            _ 
+// ~  _ __ | | __ _ _  _| |
+// ~ | '_ \| |/ _' | || |_|
+// ~ |  __/|_|\____|\__ (_)
+// ~ |_|            |__/   
+// ~
+// ~ play! 1.2-preview, http://www.playframework.org
+// ~
+// ~ For all commands, if the application is not specified, the current directory is used
+// ~ Use 'play help cmd' to get more help on a specific command
+// ~
+// ~ Core commands:
+// ~ ~~~~~~~~~~~~~~
+// ~ auto-test       Automatically run all application tests
+// ~ build-module    Build and package a module
+// ~ check           Check for a release newer than the current one
+// ~ classpath       Display the computed classpath
+// ~ clean           Delete temporary files (including the bytecode cache)
+// ~ crud:override   Override a view
+// ~ dependencies    Resolve and retrieve project dependencies
+// ~ eclipsify       Create all Eclipse configuration files
+// ~ help            Display help on a specific command
+// ~ id              Define the framework ID
+// ~ idealize        Create all IntelliJ Idea configuration files
+// ~ install         Install a module
+// ~ javadoc         Generate your application Javadoc
+// ~ list-modules    List modules available from the central modules repository
+// ~ modules         Display the computed modules list
+// ~ netbeansify     Create all NetBeans configuration files
+// ~ new             Create a new application
+// ~ new-module      Create a module
+// ~ out             Follow logs/system.out file
+// ~ pid             Show the PID of the running application
+// ~ precompile      Precompile all Java sources and templates to speed up application start-up
+// ~ restart         Restart the running application
+// ~ run             Run the application in the current shell
+// ~ secret          Generate a new secret key
+// ~ secure:         Show help for the secure module
+// ~ secure:override Override the CSS, login or layout
+// ~ start           Start the application in the background
+// ~ status          Display the running application's status
+// ~ stop            Stop the running application
+// ~ test            Run the application in test mode in the current shell
+// ~ war             Export the application as a standalone WAR archive
+// ~
+// ~ Also refer to documentation at http://www.playframework.org/documentation
+// ~
+// */
+// 
+// 
+// 
+// 
+// 
+// /*
+//  ____ _ ____ _________ _____ 
+// /  _ Y Y  __Y  __/   _Y__ __\
+// | | \| |  \/|  \ |  /   / \  
+// | |_/| |    /  /_|  \_  | |  
+// \____|_|_/\_\____\____/ \_/  
+// 
+//  _____  _               _   
+// |  __ \(_)             | |  
+// | |  | |_ _ __ ___  ___| |_ 
+// | |  | | | '__/ _ \/ __| __|
+// | |__| | | | |  __/ (__| |_ 
+// |_____/|_|_|  \___|\___|\__|
+// 
+//  ____  ____  ____  ____  ___  ____ 
+// (  _ \(_  _)(  _ \( ___)/ __)(_  _)
+//  )(_) )_)(_  )   / )__)( (__   )(  
+// (____/(____)(_)\_)(____)\___) (__) 
+// 
+//  ______    __                     __   
+// |   _  \  |__|.----..-----..----.|  |_ 
+// |.  |   \ |  ||   _||  -__||  __||   _|
+// |.  |    \|__||__|  |_____||____||____|
+// |:  1    /                             
+// |::.. . /                              
+// `------'                               
+// 
+// ___  _ ____ ____ ____ ___ 
+// |  \ | |__/ |___ |     |  
+// |__/ | |  \ |___ |___  |  
+// 
+// ______ _               _   
+// |  _  (_)             | |  
+// | | | |_ _ __ ___  ___| |_ 
+// | | | | | '__/ _ \/ __| __|
+// | |/ /| | | |  __/ (__| |_ 
+// |___/ |_|_|  \___|\___|\__|
+//                            
+//     ____  _                 __ 
+//    / __ \(_)________  _____/ /_
+//   / / / / // ___/ _ \/ ___/ __/
+//  / /_/ / // /  /  __/ /__/ /_  
+// /_____/_//_/   \___/\___/\__/  
+//                                
+//    ___  _              __ 
+//   / _ \(_)_______ ____/ /_
+//  / // / // __/ -_) __/ __/
+// /____/_//_/  \__/\__/\__/ 
+//                           
+// ________ _____                      _____ 
+// ___  __ \___(_)_____________ _________  /_
+// __  / / /__  / __  ___/_  _ \_  ___/_  __/
+// _  /_/ / _  /  _  /    /  __// /__  / /_  
+// /_____/  /_/   /_/     \___/ \___/  \__/  
+// 
+//  ____  _               _   
+// |  _ \(_)_ __ ___  ___| |_ 
+// | | | | | '__/ _ \/ __| __|
+// | |_| | | | |  __/ (__| |_ 
+// |____/|_|_|  \___|\___|\__|
+//                            
+// */
