@@ -1,6 +1,6 @@
 { "tag": "latest"
 , "version": "0.0.1"
-, "name": "Direct"
+, "name": "direct"
 , "description": "Full-stack, convention-driven Express-based web-app framework"
 , "keywords": "expressive web mvc rest restful html html5 http distributed server framework direct express connect database db orm"
 , "homepage": "http://laurie71.github.com/direct"
@@ -11,7 +11,7 @@
 
 , "repository": { "type": "git", "url": "git://github.com/laurie71/direct.git" }
 
-, "main": "lib/index"
+, "main": "lib/direct"
 , "directories": 
     { "bin": "bin"
     , "doc": "docs"
@@ -32,7 +32,7 @@
 , "bundledDependencies":
     {
     }
-, "devDependencies"
+, "devDependencies":
     { "vows": "*"
     }
 }
