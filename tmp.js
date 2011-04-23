@@ -4,12 +4,13 @@ var DEBUG = function() {
 }
 
 // ------------------------------------------------------------------------
-// DEBUG('load lib/direct');
-// var direct = require('./lib/direct');
+DEBUG('load lib/direct');
+var direct = require('./lib/direct');
 DEBUG('load lib/application');
 var eapp = require('./lib/framework/application');
 DEBUG('create direct app');
-new eapp.Application(__dirname+'/examples/helloworld'/* , direct*/);
+var app = new eapp.Application(__dirname+'/examples/helloworld'/* , direct*/);
+app.load();
 DEBUG('done');
 
 DEBUG('++++++++++');
