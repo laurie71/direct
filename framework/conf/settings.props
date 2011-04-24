@@ -1,0 +1,3 @@
+direct.load-on-start = true
+direct.load-on-start:dev = false
+
