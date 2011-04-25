@@ -5,10 +5,22 @@ var direct = module.exports = new (function direct() {});
 
 direct.api = api;
 direct.framework = new api.framework.Framework();
+direct.util = require('./lib/api/util');
 
-Object.defineProperty(direct, 'app', { enumerable: true, get: function() {
-    return direct.framework.app;
-}});
+Object.defineProperty(direct, 'app', { 
+    enumerable: true, 
+    configurable: true, 
+    
+    get: function() { 
+        throw new util.error.Error('no application loaded'); 
+    },
+    
+    set: function(v) { 
+        Object.defineProperty(this, 'app', { 
+            enumerable: true, value: v
+        }); 
+    }
+});
 
 // ------------------------------------------------------------------------
 // ------------------------------------------------------------------------
