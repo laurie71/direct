@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-exports.firesEvents = function firesEvents(fn, es) {
+exports.firesEvents = function firesEvents(fn, es, tests) {
     var ctx = {
         topic: function(emitter) {
             var cb = this.callback, fired = {};
@@ -19,8 +19,13 @@ exports.firesEvents = function firesEvents(fn, es) {
         }
     }
     Object.keys(es).forEach(function(event) {
-        var label = event + ' (' + (es[event] ? 'fired' : 'not fired') + ')';
+        var label = 'event: ' + event + ' (' + (es[event] ? 'fired' : 'not fired') + ')';
         ctx[label] = function(result) { assert.ok(result.events[event] === result.expected[event]); }
     });
+    if (tests) {
+        for (var test in tests) {
+            ctx[test] = tests[test];
+        }
+    }
     return ctx;
 }
