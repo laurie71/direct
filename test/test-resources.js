@@ -6,15 +6,6 @@ var R = require('direct/lib/api/resources');
 
 var firesEvents = require('./lib').firesEvents;
 
-// console.log(U);
-// console.log(U.error);
-// console.log(U.error.Error);
-// console.log(U.error.Error('xxx'));
-// console.log(U.error.Error('xxx') instanceof Error);
-// console.log(U.error.Error('xxx') instanceof U.error.Error);
-console.log(R.ResourceError('xxx') instanceof U.error.Error);
-console.log(R.ResourceError('xxx') instanceof R.ResourceError); // xxx
-
 
 vows.describe('Direct Resources').addBatch({
     'ResourceError': {
@@ -22,6 +13,13 @@ vows.describe('Direct Resources').addBatch({
         'isa Error': function(e) { assert.instanceOf(e, Error); },
         'isa DirectError': function(e) { assert.instanceOf(e, U.error.Error); },
         'isa ResourceError': function(e) { assert.instanceOf(e, R.ResourceError); }
+    },
+    'ResourceFileError': {
+        topic: R.ResourceFileError('info str'),
+        'isa Error': function(e) { assert.instanceOf(e, Error); },
+        'isa DirectError': function(e) { assert.instanceOf(e, U.error.Error); },
+        'isa ResourceError': function(e) { assert.instanceOf(e, R.ResourceError); },
+        'isa ResourceFileError': function(e) { assert.instanceOf(e, R.ResourceFileError); }
     }
 }).addBatch({
     'Resource': {
@@ -46,7 +44,42 @@ vows.describe('Direct Resources').addBatch({
                     return r; 
                 },
                 'error': firesEvents('load', { load: true, ready: false, error: false })
+            }
+        }
+    },
+}).addBatch({    
+    'ResourceFile': {
+        topic: new R.ResourceFile('id', __dirname+'/fixtures/empty-resource.txt'),
+        'has an ID': function(r) { assert.equal(r.id, 'id'); },
+        'has a filename': function(r) { assert.isString(r.filename); },
+        'fires correct events on': {
+            'load OK': firesEvents('load', { load: true, ready: true, error: false }),
+            'load with thrown': {
+                topic: function(r) { 
+                    r._load = function(cb) { 
+                        throw new Error('thrown') 
+                    }; 
+                    return r; 
+                },
+                'error': firesEvents('load', { load: true, ready: false, error: false }, {
+                    'error is wrapped': function(result) { 
+                        assert.instanceOf(result.error, R.ResourceFileError);
+                    }
+                })
             },
+            'load with callback': {
+                topic: function(r) { 
+                    r._load = function(cb) { 
+                        cb(new Error('callback'));
+                    }; 
+                    return r; 
+                },
+                'error': firesEvents('load', { load: true, ready: false, error: false }, {
+                    'error is wrapped': function(result) { 
+                        assert.instanceOf(result.error, R.ResourceFileError);
+                    }
+                })
+            }
         }
     }
 }).export(module);
