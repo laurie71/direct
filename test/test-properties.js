@@ -1,10 +1,10 @@
 var assert = require('assert');
 var vows = require('vows');
-var props = require('direct/lib/api/properties');
+var props = require('../lib/api/properties');
 
-var U = require('direct/lib/api/util');
-var R = require('direct/lib/api/resources');
-var P = require('direct/lib/api/properties');
+var U = require('../lib/api/util');
+var R = require('../lib/api/resources');
+var P = require('../lib/api/properties');
 
 function isError(fn) {
     return function() { assert.throws(fn, TypeError); }
