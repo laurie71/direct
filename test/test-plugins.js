@@ -1,9 +1,9 @@
 var assert = require('assert');
 var vows = require('vows');
 
-var U = require('direct/lib/api/util');
-var R = require('direct/lib/api/resources');
-var P = require('direct/lib/api/plugins');
+var U = require('../lib/api/util');
+var R = require('../lib/api/resources');
+var P = require('../lib/api/plugins');
 
 var firesEvents = require('./lib').firesEvents;
 
