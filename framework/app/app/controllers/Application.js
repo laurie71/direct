@@ -1,7 +1,7 @@
 // {path}
 
 module.exports = {
-    index: function() {
-        // ... {DIRECT}
+    index: function(req, res, next) {
+        res.end('Welcome to {DIRECT}');
     }
 }
