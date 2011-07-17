@@ -33,8 +33,7 @@ direct.start = function(root) {
 
     function frameworkReady() {
         direct.util.log.info('Application loading...')
-        var app = new Application(root, direct.framework
-, direct);
+        var app = new Application(root, direct.framework);
         app.on('error', function dump(err) { 
             if (err) {
                 console.error(err.stack || err);
