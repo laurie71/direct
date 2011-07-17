@@ -23,6 +23,42 @@ Object.defineProperty(direct, 'app', {
 });
 
 // ------------------------------------------------------------------------
+
+direct.start = function(root) {
+    var Application = direct.api.application.Application;
+      
+    direct.util.log.info('Framework loading...');
+    direct.framework.on('ready', frameworkReady);
+    direct.framework.load();
+
+    function frameworkReady() {
+        direct.util.log.info('Application loading...')
+        var app = new Application(root, direct.framework
+, direct);
+        app.on('error', function dump(err) { 
+            if (err) {
+                console.error(err.stack || err);
+                dump(err.cause);
+            }
+        });
+        app.on('ready', appReady);
+        direct.app = app;
+        app.load();
+    }
+
+    function appReady() {
+        direct.util.log.info('Starting server...');
+        var srv = new direct.api.server.Server(direct.app);
+    
+        srv.on('listening', function() {
+            console.log('Direct Web Framework listening at http://%s:%d/',
+                srv.address().addr, srv.address().port);
+        });
+    
+        srv.listen(5000);
+    }
+}
+
 // ------------------------------------------------------------------------
 /*
 + direct.api.Resource                       // [#id] identifiable, async-loadable resource
