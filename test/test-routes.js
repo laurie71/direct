@@ -10,12 +10,12 @@ var firesEvents = require('./lib').firesEvents;
 
 vows.describe('Direct Routes').addBatch({
     'RouteError': {
-        topic: RT.RoutesError('info str'),
+        topic: RT.RouteError('info str'),
         'isa Error': function(e) { assert.instanceOf(e, Error); },
         'isa DirectError': function(e) { assert.instanceOf(e, U.error.Error); },
         'isa ResourceError': function(e) { assert.instanceOf(e, R.ResourceError); },
         'isa ResourceFileError': function(e) { assert.instanceOf(e, R.ResourceFileError); },
-        'isa RoutesError': function(e) { assert.instanceOf(e, RT.RoutesError); }
+        'isa RouteError': function(e) { assert.instanceOf(e, RT.RouteError); }
     }
 }).addBatch({
     'Route': {
@@ -50,8 +50,8 @@ vows.describe('Direct Routes').addBatch({
 //         }
     }
 }).addBatch({
-    'Routes': {
-        topic: new RT.Routes({ id:'test-plugin', root: 'plugin-root' }),
+    'RouteLoader': {
+        topic: new RT.RouteLoader({ app: {id:'test-plugin', root: 'plugin-root' }}),
         
         'constructor': {
             'sets ID': function(rs) { assert.equal(rs.id, 'test-plugin:routes'); },
@@ -59,12 +59,12 @@ vows.describe('Direct Routes').addBatch({
             'sets plugin': function(rs) { assert.isNotNull(rs.plugin); }
         },
         
-        'reports RoutesError on failed load': function(rs) {
+        'reports RouteError on failed load': function(rs) {
             try {
                 rs.load();
                 assert.fail('error expected');
             } catch (e) {
-                assert.instanceOf(e, RT.RoutesError);
+                assert.instanceOf(e, RT.RouteError);
                 assert.equal(e.filename, rs.filename);
             }
         }
