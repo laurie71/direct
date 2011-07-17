@@ -3,34 +3,6 @@ var vows = require('vows');
 
 var C = require('../lib/api/controllers');
 
-function toPath(path) {
-    return function(c) { 
-        console.dir(this);
-        assert.equal(c.resolve('???'), path); 
-    }
-}
-
-function assertResolvesTo(tests) {
-    var ctx = {}, t, n;
-    for (t in tests) {
-        n = t + ' --> ' + tests[t];
-        ctx[n] = (function() { 
-            var input = t, 
-                expect = tests[t];
-                
-            return function(c) {
-                var app = c.app,
-                    root = app.root,
-                    resolve = c.resolve(input),
-                    actual = resolve.slice(root.length+1);
-                
-                assert.equal(actual, expect); 
-            };
-        }());
-    }
-    return ctx;
-}
-
 function assertMapsTo(tests) {
     var ctx = {}, t;
     for (t in tests) {
