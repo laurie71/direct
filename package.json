@@ -1,0 +1,27 @@
+{
+  "author": "Laurie Harper (http://laurie.holoweb.net/)",
+  "name": "direct",
+  "version": "1.0.0-dev",
+  "repository": {
+    "url": ""
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+     "async": "*",
+     "dust": "*",
+     "express": "*",
+     "jslib": "*",
+     "underscore": "*"
+  },
+  "devDependencies": {
+    "vows": "*"
+  },
+  "scripts": {
+      "test": "vows --spec test/test-*"
+  }
+}
