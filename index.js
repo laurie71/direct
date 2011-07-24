@@ -51,7 +51,7 @@ direct.start = function(root) {
     
         srv.on('listening', function() {
             console.log('Direct Web Framework listening at http://%s:%d/',
-                srv.address().addr, srv.address().port);
+                srv.address().address, srv.address().port);
         });
     
         srv.listen(5000);
